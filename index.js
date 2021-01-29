@@ -6,15 +6,44 @@ import { fifaData } from './fifa.js';
 Practice accessing data by console.log-ing the following pieces of data note, you may want to filter the data first 😉*/
 
 //(a) Home Team name for 2014 world cup final
+const fourteenArray = fifaData.filter(function(item){
+    return item.Year === 2014;
+});
+const finalArray = fourteenArray.filter(function(item){
+    return item.Stage == 'Final';
+});
+const resultHome = finalArray.map(function(element){
+    return element['Home Team Name'];
+});
+console.log(resultHome);
 
 //(b) Away Team name for 2014 world cup final
+const resultAway = finalArray.map(function(element){
+    return element['Away Team Name'];
+});
+console.log(resultAway);
 
 //(c) Home Team goals for 2014 world cup final
+const homeGoals = finalArray.map(function(element){
+    return element['Home Team Goals'];
+});
+console.log(homeGoals);
 
 //(d) Away Team goals for 2014 world cup final
+const awayGoals = finalArray.map(function(element){
+    return element['Away Team Goals'];
+})
+console.log(awayGoals);
 
 //(e) Winner of 2014 world cup final */
-
+function winnerTeam(home, away, homeTeam, awayTeam){
+    if(home > away){
+        return homeTeam;
+    }else{
+        return awayTeam;
+    }
+};
+console.log(winnerTeam(homeGoals, awayGoals, resultHome, resultAway));
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Use getFinals to do the following:
@@ -24,11 +53,13 @@ Use getFinals to do the following:
 hint - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(/* code here */) {
-   /* code here */
+function getFinals(data) {
+    const newArray = data.filter(function(el){
+        return el.Stage == 'Final'
+    })
+
+    return newArray;
 }
-
-
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher-order function called getYears to do the following: 
@@ -36,8 +67,13 @@ Use the higher-order function called getYears to do the following:
 2. Receive a callback function getFinals from task 2 
 3. Return an array called years containing all of the years in the getFinals data set*/
 
-function getYears(/* code here */) {
-    /* code here */
+function getYears(arr, callback) {
+    const years = [];
+    callback(arr.map(function(el){
+       years.push(el.Years)
+    }));
+
+   return years;
 }
 
 
